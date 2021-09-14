@@ -1,0 +1,77 @@
+<body>
+
+<div>
+  <h2>对该 DEMO 的说明</h2>
+  <p>该 DEMO 是为了更好的展现 Jap-Http-Api 模块所能提供的功能，关于该模块的简单介绍可以查看 <a href="https://mvbbb.cn/add-http-api-module-in-jap/">项目经验分享：在 JustAuth Plus 中添加 HTTP API 的登陆方式</a></p>
+  <p>
+    <b>开发者配置 HttpApiConfig</b> 模拟开发者配置 HttpApiConfig
+    <br>
+    <b>用户登录测试</b> 模拟用户的登录行为
+  </p>
+</div>
+
+<div>
+
+  <h2>Basic 第三方登录测试 1</h2>
+  <p>
+    第三方登录地址 : http://httpbin.org/basic-auth/foo/bar <br>
+    第三方HTTP请求方式：GET <br>
+    用户名： foo <br>
+    密码: bar <br>
+  </p>
+
+</div>
+
+<!--<div>-->
+<!--  <h2>Basic 第三方登录测试 2</h2>-->
+<!--  <p>-->
+<!--    第三方登录地址：https://jigsaw.w3.org/HTTP/Basic/ <br>-->
+<!--    第三方HTTP请求方式：GET <br>-->
+<!--    用户名：guest <br>-->
+<!--    密码：guest <br>-->
+<!--  </p>-->
+<!--</div>-->
+
+<div>
+  <h2>Digest 第三方登录测试 1</h2>
+  <p>
+    第三方登录地址： http://httpbin.org/digest-auth/auth/user/passwd <br>
+    第三方HTTP请求方式：GET <br>
+    用户名： user <br>
+    密码： passwd <br>
+  </p>
+
+</div>
+
+<div>
+  <h2>Bearer 第三方登录测试</h2>
+
+  <div>
+    <b>对 Bearer 配置项的说明</b> 我们知道 Bearer 认证其实就是在 Http 请求中携带一个 Token 字符串来实现的。但是这个字符串从哪儿来呢，需要我们携带用户信息向第三方服务器的指定地址发起认证请求来获得。对应 Bearer 示例流程图的第三步：
+    <br>
+    <img src="https://mvbbb.cn/add-http-api-module-in-jap/index/image-7905500.png" alt="Bearer 认证流程" width="800px">
+    <br>
+    所以在进行 Bearer 认证时，我们需要指定
+    <ol>
+      <li>
+        Bearer Token 的签发请求地址
+      </li>
+      <li>
+        Bearer 认证预请求方式：这个是用来指定在进行 Token 签发时用户信息如何发送到第三方，你可以看到，有
+        by_header（将用户信息放到请求头中）、by_body、by_params 这些传递方式，
+        还有两个比较特别的传递方式 by_basic、by_digest，这是因为在进行 Token 签发时我们可以使用 BASIC 或者 DIGEST 认证。
+      </li>
+    </ol>
+  </div>
+
+  <p>
+    第三方 Bearer Token 签发请求地址： http://localhost:8088/auth/token<br>
+    Bearer 认证预请求方式： by_basic <br>
+    第三方登陆地址：http://localhost:8088/api/v1/source1 <br>
+    第三方HTTP请求方式： GET <br>
+    用户名：admin <br>
+    密码： admin
+  </p>
+</div>
+
+</body>
