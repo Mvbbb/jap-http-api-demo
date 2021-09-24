@@ -8,6 +8,8 @@ import com.fujieid.httpapi.demo.util.BeanConvertUtil;
 import com.fujieid.jap.core.cache.JapLocalCache;
 import com.fujieid.jap.core.config.JapConfig;
 import com.fujieid.jap.core.result.JapResponse;
+import com.fujieid.jap.http.adapter.jakarta.JakartaRequestAdapter;
+import com.fujieid.jap.http.adapter.jakarta.JakartaResponseAdapter;
 import com.fujieid.jap.httpapi.HttpApiConfig;
 import com.fujieid.jap.httpapi.HttpApiStrategy;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,32 +20,34 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
-@RequestMapping(value = "/api",produces = "application/json;charset=utf-8")
+@RequestMapping(value = "/api", produces = "application/json;charset=utf-8")
 public class IndexController {
 
-    HttpApiStrategy httpApiStrategy = new HttpApiStrategy(new JapHttpApiUserServiceImpl(), new JapConfig(),new JapLocalCache());
+    HttpApiStrategy httpApiStrategy = new HttpApiStrategy(new JapHttpApiUserServiceImpl(), new JapConfig(), new JapLocalCache());
     HttpApiConfig httpApiConfig;
 
 
     @RequestMapping("/login")
-    public RestResult login(HttpServletRequest request, HttpServletResponse response){
-        if(httpApiConfig==null){
+    public RestResult login(HttpServletRequest request, HttpServletResponse response) {
+        if (httpApiConfig == null) {
             return RestResult.failed("connect to developer to init this system");
         }
-        JapResponse result = httpApiStrategy.authenticate(httpApiConfig, request, response);
-        if(result.getCode()==200){
+        JapResponse result = httpApiStrategy.authenticate(httpApiConfig,
+                new JakartaRequestAdapter(request),
+                new JakartaResponseAdapter(response));
+        if (result.getCode() == 200) {
             return RestResult.success("login success", JSONObject.toJSONString(result));
-        }else{
-            return RestResult.failed("login failed",JSONObject.toJSONString(result));
+        } else {
+            return RestResult.failed("login failed", JSONObject.toJSONString(result));
         }
     }
 
     @RequestMapping("/set")
-    public RestResult setDev(@RequestBody DevReq devReq){
+    public RestResult setDev(@RequestBody DevReq devReq) {
         httpApiConfig = BeanConvertUtil.toHttpApiConfig(devReq);
-        if(httpApiConfig==null){
+        if (httpApiConfig == null) {
             return RestResult.failed("Incomplete parameters");
-        }else{
+        } else {
             return RestResult.success("Update success", JSONObject.toJSONString(devReq));
 
         }

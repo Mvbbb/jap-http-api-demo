@@ -21,32 +21,32 @@ public class BeanConvertUtil {
 
         HttpApiConfig httpApiConfig = new HttpApiConfig();
         if (StringUtils.equalsIgnoreCase(devReq.getHttpMethod(),"post")) {
-            httpApiConfig.setHttpMethod(HttpMethodEnum.post);
+            httpApiConfig.setHttpMethod(HttpMethodEnum.POST);
         }else{
-            httpApiConfig.setHttpMethod(HttpMethodEnum.get);
+            httpApiConfig.setHttpMethod(HttpMethodEnum.GET);
         }
         if(StringUtils.equalsIgnoreCase(devReq.getAuthSchema(),"basic")){
-            httpApiConfig.setAuthSchema(AuthSchemaEnum.basic);
+            httpApiConfig.setAuthSchema(AuthSchemaEnum.BASIC);
         }else if(StringUtils.equalsIgnoreCase(devReq.getAuthSchema(),"digest")){
-            httpApiConfig.setAuthSchema(AuthSchemaEnum.digest);
+            httpApiConfig.setAuthSchema(AuthSchemaEnum.DIGEST);
         }else{
-            httpApiConfig.setAuthSchema(AuthSchemaEnum.bearer);
+            httpApiConfig.setAuthSchema(AuthSchemaEnum.BEARER);
             httpApiConfig.setBearerTokenIssueUrl(devReq.getBearerTokenIssueUrl());
             switch (devReq.getForBearerTokenEnum()){
                 case "by_header":
-                    httpApiConfig.setForBearerTokenEnum(ForBearerTokenEnum.by_header);
+                    httpApiConfig.setForBearerTokenEnum(ForBearerTokenEnum.BY_HEADER);
                     break;
                 case "by_params":
-                    httpApiConfig.setForBearerTokenEnum(ForBearerTokenEnum.by_params);
+                    httpApiConfig.setForBearerTokenEnum(ForBearerTokenEnum.BY_PARAMS);
                     break;
                 case "by_body":
-                    httpApiConfig.setForBearerTokenEnum(ForBearerTokenEnum.by_body);
+                    httpApiConfig.setForBearerTokenEnum(ForBearerTokenEnum.BY_BODY);
                     break;
                 case "by_basic":
-                    httpApiConfig.setForBearerTokenEnum(ForBearerTokenEnum.by_basic);
+                    httpApiConfig.setForBearerTokenEnum(ForBearerTokenEnum.BY_BASIC);
                     break;
                 case "by_digest":
-                    httpApiConfig.setForBearerTokenEnum(ForBearerTokenEnum.by_digest);
+                    httpApiConfig.setForBearerTokenEnum(ForBearerTokenEnum.BY_DIGEST);
                     break;
                 default:
                     break;
@@ -54,11 +54,11 @@ public class BeanConvertUtil {
         }
         httpApiConfig.setLoginUrl(devReq.getLoginUrl().trim()) ;
         if(StringUtils.equalsIgnoreCase(devReq.getAuthInfoField(),"header")){
-            httpApiConfig.setAuthInfoField(AuthInfoFieldEnum.header);
+            httpApiConfig.setAuthInfoField(AuthInfoFieldEnum.HEADER);
         }else if(StringUtils.equalsIgnoreCase(devReq.getAuthInfoField(),"params")){
-            httpApiConfig.setAuthInfoField(AuthInfoFieldEnum.params);
+            httpApiConfig.setAuthInfoField(AuthInfoFieldEnum.PARAMS);
         }else{
-            httpApiConfig.setAuthInfoField(AuthInfoFieldEnum.body);
+            httpApiConfig.setAuthInfoField(AuthInfoFieldEnum.BODY);
         }
         httpApiConfig.setCustomHeaders(devReq.getCustomHeaders());
         httpApiConfig.setCustomParams(devReq.getCustomParams());
